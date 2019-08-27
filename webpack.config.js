@@ -6,22 +6,21 @@ const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env, options) => ({
-  devtool: 'source-map',
+  // devtool: 'source-map',
   optimization: {
     minimizer: [
       new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: true }),
-      new OptimizeCSSAssetsPlugin({}),
     ],
   },
   entry: {
-    './js/app.js': sync('./vendor/*.js').concat(['./js/app.js']),
+    './js/app.js': glob.sync('./static/vendor/*.js').concat(['./js/app.js']),
   },
   output: {
+    path: path.resolve(__dirname, '../priv/static'),
+    publicPath: '/',
     filename: 'app.js',
-    path: resolve(__dirname, '../priv/static/js'),
   },
   module: {
     rules: [
@@ -57,16 +56,32 @@ module.exports = (env, options) => ({
               },
             },
           },
-          'sass-loader',
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              removeCR: true,
+              //sourceMap: true,
+              engine: 'postcss',
+            },
+          },
+          {
+            // Converts SASS & SCSS to CSS
+            loader: 'sass-loader',
+            options: {
+              //sourceMap: true,
+              // sourceMapContents: false,
+            },
+          },
         ],
       },
       {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader?limit=10000',
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '../static/fonts/[name].[ext]',
+          },
+        },
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -79,15 +94,16 @@ module.exports = (env, options) => ({
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : '[name].[hash].css',
+      filename: devMode
+        ? '../static/css/[name].css'
+        : '../static/css/[name].[hash].css',
     }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
-    new ProvidePlugin({
+    new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       'window.$': 'jquery',
-      Tether: 'tether',
       Popper: 'popper.js',
       bootstrap: 'bootstrap',
     }),
