@@ -132,7 +132,7 @@ $spacers: map-merge(
       (
         $spacer * 25,
       ),
-    // 400px,,,,,,,
+    // 400px,,,,,,,,,
   ),
   $spacers
 );
@@ -569,7 +569,7 @@ $avatar-title-bg: $gray-500 !default;
 $avatar-title-color: $white !default;
 
 // Paths
-$path-to-img: '../static/images' !default;
+$path-to-img: '../../src/images' !default;
 
 // Icons
 

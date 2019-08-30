@@ -1,11 +1,14 @@
-const devMode = process.env.NODE_ENV !== 'production';
-
-const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const devMode = process.env.NODE_ENV !== 'production';
+const projRoot = path.resolve(__dirname, '/');
+const distFolder = path.resolve(__dirname, 'dist');
 
 module.exports = (env, options) => ({
   // devtool: 'source-map',
@@ -15,12 +18,13 @@ module.exports = (env, options) => ({
     ],
   },
   entry: {
-    './js/app.js': glob.sync('./static/vendor/*.js').concat(['./js/app.js']),
+    app: glob.sync('./src/vendor/*.js').concat(['./src/js/app.js']),
   },
   output: {
-    path: path.resolve(__dirname, '../priv/static'),
-    publicPath: '/',
-    filename: 'app.js',
+    path: distFolder,
+    publicPath: '/dist',
+    filename: '[name].bundle.js',
+    chunkFilename: 'js/[id].[chunkhash].chunk',
   },
   module: {
     rules: [
@@ -36,8 +40,8 @@ module.exports = (env, options) => ({
         test: /\.(sa|sc|c)ss$/i,
         use: [
           {
-            // fallback to style-loader in development
-            loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            // fallback to style-loader in production
+            loader: devMode ? MiniCssExtractPlugin.loader : 'style-loader',
           },
           {
             // translates CSS into CommonJS modules
@@ -79,7 +83,7 @@ module.exports = (env, options) => ({
         use: {
           loader: 'file-loader',
           options: {
-            name: '../static/fonts/[name].[ext]',
+            name: 'fonts/[name].[ext]',
           },
         },
       },
@@ -93,19 +97,13 @@ module.exports = (env, options) => ({
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: devMode
-        ? '../static/css/[name].css'
-        : '../static/css/[name].[hash].css',
+    new CleanWebpackPlugin(['css', 'favicon', 'fonts', 'images', 'js'], {
+      root: distFolder,
     }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'window.$': 'jquery',
-      Popper: 'popper.js',
-      bootstrap: 'bootstrap',
+    // new CopyWebpackPlugin([{ from: "static/**/*", to: path.resolve(distFolder, "../")}]),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
     }),
   ],
 });
