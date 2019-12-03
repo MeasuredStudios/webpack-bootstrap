@@ -47,7 +47,7 @@ module.exports = (env, options) => ({
             // translates CSS into CommonJS modules
             // Interprets `@import` and `url()` like `import/require()` and will resolve them
             loader: 'css-loader',
-            options: { modules: true, importLoaders: 1 },
+            options: { modules: false, importLoaders: 1 },
           },
           {
             // Run post css actions
@@ -97,9 +97,9 @@ module.exports = (env, options) => ({
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['css', 'favicon', 'fonts', 'images', 'js'], {
-      root: distFolder,
-    }),
+    // new CleanWebpackPlugin(['css', 'favicon', 'fonts', 'images', 'js'], {
+    // root: distFolder,
+    // }),
     // new CopyWebpackPlugin([{ from: "static/**/*", to: path.resolve(distFolder, "../")}]),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
