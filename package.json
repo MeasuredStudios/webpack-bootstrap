@@ -115,6 +115,9 @@
       "browser": true,
       "node": true
     },
+    "parserOptions": {
+      "sourceType": "module"
+    },
     "overrides": [],
     "plugins": [],
     "rules": {
@@ -137,5 +140,4 @@
   "engines": {
     "node": ">= 10.18.0"
   }
-
 }
