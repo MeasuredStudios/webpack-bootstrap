@@ -10,9 +10,14 @@
 logs
 *.log
 .idea
+.netlify/
 
 # Ignore node_modules
 node_modules/
+
+# Ignore Temps
+src/.tmp/
+dist/
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
@@ -32,6 +37,7 @@ yarn-error.log*
 
 # Project dependencies (Gatsby)
 .cache
+public
 node_modules
 package-lock.json
 yarn.lock
