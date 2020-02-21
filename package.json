@@ -99,7 +99,7 @@
     "stylelint-config-prettier": "8.0.1",
     "stylelint-config-twbs-bootstrap": "2.0.1",
     "stylelint-prettier": "1.1.2",
-    "typescript": "3.7.5"
+    "typescript": "3.8.2"
   },
   "scripts": {
     "deploy": "SET NODE_ENV=production & node ./node_modules/webpack/bin/webpack.js --mode=production",
