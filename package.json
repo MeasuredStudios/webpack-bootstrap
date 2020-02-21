@@ -66,7 +66,7 @@
     "@types/copy-webpack-plugin": "5.0.0",
     "@types/file-loader": "4.2.0",
     "@types/uglifyjs-webpack-plugin": "1.1.0",
-    "@types/mini-css-extract-plugin": "0.9.0",
+    "@types/mini-css-extract-plugin": "0.9.1",
     "@types/optimize-css-assets-webpack-plugin": "5.0.1",
     "@babel/core": "7.8.4",
     "babel-loader": "8.0.6",
