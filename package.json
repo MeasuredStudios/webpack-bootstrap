@@ -52,7 +52,7 @@
     "@types/isotope-layout": "3.0.8",
     "@types/smooth-scroll": "16.1.0",
     "@types/eslint": "6.1.8",
-    "@types/prettier": "1.19.0",
+    "@types/prettier": "1.19.1",
     "@types/stylelint": "9.10.1",
     "@types/eslint-plugin-prettier": "2.2.0",
     "@types/babel-core": "6.25.6",
