@@ -56,7 +56,7 @@
     "@types/stylelint": "9.10.1",
     "@types/eslint-plugin-prettier": "2.2.0",
     "@types/babel-core": "6.25.6",
-    "@types/webpack": "4.41.9",
+    "@types/webpack": "4.41.10",
     "@types/autoprefixer": "9.7.2",
     "@types/copy-webpack-plugin": "5.0.0",
     "@types/file-loader": "4.2.0",
