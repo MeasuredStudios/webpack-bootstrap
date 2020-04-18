@@ -95,7 +95,7 @@
     "jest": "25.3.0",
     "ts-jest": "25.4.0",
     "husky": "4.2.5",
-    "lint-staged": "10.1.4"
+    "lint-staged": "10.1.5"
   },
   "scripts": {
     "deploy": "SET NODE_ENV=production & node ./node_modules/webpack/bin/webpack.js --mode=production",
