@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.22.1-stretch
+      - image: circleci/node:10.23.0-stretch
     steps:
       - checkout
       - run:
